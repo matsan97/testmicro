@@ -1,0 +1,70 @@
+#%RAML 1.0 Library
+uses:
+  base: ./base.raml
+types:
+
+  Matriculation:
+    description: |
+      Matriculation
+    properties:
+      id:
+        type: base.MatriculationId
+      creation_date:
+        type: date-only
+      creation_time:
+        type: time-only
+      paid:
+        type: boolean
+      pay_day:
+        type: datetime-only
+      total:
+        type: base.Amount
+      currency:
+        type: base.Currency
+      subjects:
+        type: Subject[]
+      student:
+        type: Subject
+    
+  Subject:
+    description: |
+      Subject information
+    properties:
+      id:
+        type: base.SubjectId
+      name:
+        type: base.SubjectName
+      amount:
+        type: base.Amount        
+
+  Student:
+    description: |
+      Student information
+    properties:
+      id:
+        type: base.StudentId
+      first_name:
+        type: base.IndividualName
+      last_name:
+        type: base.IndividualName
+      document_number:
+        type: base.id_document_number
+      birth_date:
+        type: date-only
+      gender:
+        type: base.Gender
+      height:
+        type: number
+      weight:
+        type: number
+      email:
+        type: base.Email
+      creation_date_time:
+        type: datetime-only
+
+  MatriculationsGetResponseData:
+    description: |
+      Wrapper for a collection of Matriculations
+    properties:
+      data:
+        type: Matriculation[]

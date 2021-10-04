@@ -1,0 +1,341 @@
+#%RAML 1.0
+title: University
+
+documentation:
+  - title: Introduction
+    content: !include ./README.md
+  - title: Licensing
+    content:
+      !include documentation/license.md
+  - title: Copyright
+    content:
+      !include documentation/copyright.md
+
+version: v1
+
+mediaType: application/json
+protocols:
+  - HTTP
+  - HTTPS
+baseUri: 'http://{host}:{port}/university/{version}'
+
+baseUriParameters:
+  host:
+    type: string
+  port:
+    type: integer
+
+uses:
+  filterType: ./traits/filter_type.raml
+  errorWarning: ./libraries/error_warning.raml
+
+  studentsGetResponse: ./types/students_get_response.raml
+  studentsByIdGetResponse: ./types/students_by_id_get_response.raml
+  studentsPostRequest: ./types/students_post_request.raml
+  studentsPostResponse: ./types/students_post_response.raml
+  studentsUpdateRequest: ./types/students_update_request.raml
+  studentsUpdateResponse: ./types/students_update_response.raml
+
+  matriculationsGetResponse: ./types/matriculations_get_response.raml
+  matriculationsPostResponse: ./types/matriculations_post_response.raml
+  matriculationsPostRequest: ./types/matriculations_post_request.raml
+
+  subjectsGetResponse: ./types/subjects_get_response.raml
+  subjectsByIdGetResponse: ./types/subjects_by_id_get_response.raml
+  subjectsPostRequest: ./types/subjects_post_request.raml
+  subjectsPostResponse: ./types/subjects_post_response.raml
+  subjectsUpdateRequest: ./types/subjects_update_request.raml
+  subjectsUpdateResponse: ./types/subjects_update_response.raml  
+
+  sortable: ./traits/sortable.raml
+  paginatedContent: ./traits/paginated-content.raml
+  viewable: ./traits/viewable.raml
+  expandable: ./traits/expandable.raml
+  simplifiable: ./traits/simplifiable.raml
+
+  base: ./types/base.raml
+
+resourceTypes:
+  simple_colleccion: !include resourceTypesMCS/simple_collection.raml
+  static_collection: !include resourceTypesMCS/static_collection.raml
+  item: !include resourceTypesMCS/item.raml
+
+/students:
+  type: { simple_colleccion: { "baseUri": 'http://{host}:{port}/university/{version}' }}
+  get:
+    description: |
+      Get students filtered by specified criteria.
+    is:
+      [
+        filterType.TextEqualsTo: {attribute: first_name, required: false},
+        filterType.TextEqualsTo: {attribute: last_name, required: false},
+        filterType.TextEqualsTo: {attribute: document_number, required: false},
+        filterType.TextEqualsTo: {attribute: email, required: false},
+        filterType.DateRange: {attribute: creation_date, required: false},
+        filterType.ValueInEnum : {attribute : gender, required: false, enum: M | F},
+        viewable.Viewable: {views: basic|full},
+        paginatedContent.PaginatedContent
+      ]
+    responses:
+      200:
+        description: |
+          List of students filtered by specified criteria.
+        body:
+          application/json:
+            type: studentsGetResponse.StudentsGetResponseData
+            examples:
+              basic:
+                displayName: Basic View (basic - default)
+                value: !include examples/students/get_200_basic_resp.json
+                strict: true
+              full:
+                displayName: Full view (full)
+                value: !include examples/students/get_200_full_resp.json
+                strict: true
+      204:
+        description: |
+          No students found.
+  post:
+    description: |
+      Register a new student
+    body:
+      application/json:
+        type: studentsPostRequest.StudentsPostRequestData
+        example: !include examples/students/post_req.json
+    responses:
+      201:
+        description: |
+          Student was created
+        body:
+          application/json:
+            type: studentsPostResponse.StudentsPostResponseData
+            example: !include examples/students/post_201_resp.json
+      422:
+        description: |
+          Student request have invalid body
+  /{student_id}:
+    type: { item: { "resourceId": "student_id" } }
+    uriParameters:
+      student_id:
+        type: base.StudentId
+    get:
+      description: |
+        Get student info
+      responses:
+        200:
+          description: |
+            Student information
+          body:
+            application/json:
+              type: studentsByIdGetResponse.StudentByIdGetData
+          example: !include examples/students/get_200_element.json
+        404:
+          description: |
+            Student not found
+    patch:
+      description: |
+        Update modificable information for an existing student
+      body:
+        application/json:
+          type: studentsUpdateRequest.StudentsPatchRequestData
+          example: !include examples/students/patch_req.json
+      responses:
+        200:
+          description: |
+            Student was updated
+          body:
+            application/json:
+              type: studentsUpdateResponse.StudentsUpdateResponseData
+              example: !include examples/students/post_201_resp.json
+        404:
+          description: |
+            Student not found              
+        422:
+          description: |
+            Student update request have invalid body                        
+    put:
+      description: |
+        Update an existing student
+      body:
+        application/json:
+          type: studentsUpdateRequest.StudentsUpdateRequestData
+          example: !include examples/students/update_req.json
+      responses:
+        200:
+          description: |
+            Student was updated
+          body:
+            application/json:
+              type: studentsUpdateResponse.StudentsUpdateResponseData
+              example: !include examples/students/post_201_resp.json
+        404:
+          description: |
+            Student not found                            
+        422:
+          description: |
+            Student update request have invalid body            
+    delete:
+      description |
+        Delete student
+      responses: 
+        200:
+          description: |
+            Student deleted
+        404:
+          description: |
+            Student not found
+
+/subjects:
+  type: { simple_colleccion: { "baseUri": 'http://{host}:{port}/university/{version}' }}
+  get:
+    description: |
+      Get subjects filtered by specified criteria.
+    is:
+      [
+        filterType.TextEqualsTo: {attribute: name, required: false},
+        paginatedContent.PaginatedContent
+      ]
+    responses:
+      200:
+        description: |
+          List of subjects filtered by specified criteria.
+        body:
+          application/json:
+            type: subjectsGetResponse.SubjectsGetResponseData
+            example: !include examples/subjects/get_200_full_resp.json
+      204:
+        description: |
+          No subjects found.
+  post:
+    description: |
+      Register a new subject
+    body:
+      application/json:
+        type: subjectsPostRequest.SubjectsPostRequestData
+        example: !include examples/subjects/post_req.json
+    responses:
+      201:
+        description: |
+          Student was created
+        body:
+          application/json:
+            type: subjectsPostResponse.SubjectsPostResponseData
+            example: !include examples/subjects/post_201_resp.json
+      422:
+        description: |
+          Subject request have invalid body
+  /{subject_id}:
+    type: { item: { "resourceId": "subject_id" } }
+    uriParameters:
+      subject_id:
+        type: base.SubjectId
+    get:
+      description: |
+        Get subject info
+      responses:
+        200:
+          description: |
+            Subject information
+          body:
+            application/json:
+              type: subjectsByIdGetResponse.SubjectByIdGetData
+              example: !include examples/subjects/get_200_element.json
+        404:
+          description: |
+            Subject not found
+    put:
+      description: |
+        Update an existing Subject
+      body:
+        application/json:
+          type: subjectsUpdateRequest.SubjectsUpdateRequestData
+          example: !include examples/subjects/update_req.json
+      responses:
+        200:
+          description: |
+            Subject was updated
+          body:
+            application/json:
+              type: subjectsUpdateResponse.SubjectsUpdateResponseData
+              example: !include examples/subjects/post_201_resp.json
+        422:
+          description: |
+            Subject update request have invalid body            
+    delete:
+      description |
+        Delete subject
+      responses: 
+        200:
+          description: |
+            Subject deleted
+        404:
+          description: |
+            Subject not found
+/matriculations:
+  type: { simple_colleccion: { "baseUri": 'http://{host}:{port}/university/{version}' }}
+  get:
+    description: |
+      Get matriculations filtered by specified criteria.
+    is:
+      [
+        filterType.TextEqualsTo: {attribute: currency, required: false},
+        filterType.DateRange: {attribute: creation_date, required: false},
+        filterType.NumberEqualsTo : {attribute : student_id, required: false}
+      ]
+    responses:
+      200:
+        description: |
+          List of matriculations filtered by specified criteria.
+        body:
+          application/json:
+            type: matriculationsGetResponse.MatriculationsGetResponseData
+            example: !include examples/matriculations/get_200_full_resp.json
+      204:
+        description: |
+          No subjects found.
+  post:
+    description: |
+      Register a new matriculation request, with status P
+    body:
+      application/json:
+        type: matriculationsPostRequest.MatriculationPostRequestData
+        example: !include examples/matriculations/post_req.json
+    responses:
+      201:
+        description: |
+          Matriculation was created
+        body:
+          application/json:
+            type: matriculationsPostResponse.MatriculationPostResponseData
+            example: !include examples/matriculations/post_201_resp.json
+      422:
+        description: |
+          Subject request have invalid body
+  /confirm:
+    type: { simple_colleccion: { "baseUri": 'http://{host}:{port}/university/{version}' }}
+    post:
+      description: |
+        Run confirm operation from specific matriculation solicitude id
+      body:
+        application/json:
+          type: matriculationsPostRequest.MatriculationConfirmRequest
+          example: !include examples/matriculations/confirm_request.json
+      responses:
+        201:
+          description: |
+            Confirm accepted
+        400:
+          description:
+            Matriculation not found
+  /{matriculation_id}:
+    delete:
+      description: | 
+        Cancel a matriculation solicitude
+      responses:
+        200:
+          description: |
+            Canceled successful
+        422:
+          description: |
+            Ocurred an error in cancel operation
+

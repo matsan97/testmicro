@@ -1,0 +1,32 @@
+#%RAML 1.0 Library
+uses:
+  base: ./base.raml
+types:
+
+  StudentRequest:
+    description: |
+      Student information
+    properties:
+      first_name:
+        type: base.IndividualName
+      last_name:
+        type: base.IndividualName
+      document_number:
+        type: base.id_document_number
+      birth_date:
+        type: date-only
+      gender:
+        type: base.Gender
+      height:
+        type: number
+      weight:
+        type: number
+      email:
+        type: base.Email
+
+  StudentsPostRequestData:
+    description: |
+      Wrapper for a student post request
+    properties:
+      data: 
+        type: StudentRequest

@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "band": "1234567890123456789012345",
+      "images": [
+        {
+          "side": "F",
+          "payload": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4",
+          "format": "image/jpeg"
+        },
+        {
+          "side": "F",
+          "payload": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4",
+          "format": "image/jpeg"
+        },
+        {
+          "side": "R",
+          "payload": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4",
+          "format": "image/png"
+        },
+        {
+          "side": "R",
+          "payload": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4",
+          "format": "image/png"
+        },
+        {
+          "side": "B",
+          "payload": "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4",
+          "format": "image/tiff"
+        }
+      ]
+    }
+  ]
+}

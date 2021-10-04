@@ -1,0 +1,14 @@
+{
+  "data": {
+    "paid": true,
+    "pay_day": "2020-10-10T10:00:00Z",
+    "currency": "PYG",
+    "subjects": [
+      {
+        "id": 1,
+        "amount": 1000000
+      }
+    ],
+    "student": 1
+  }
+}

@@ -1,0 +1,49 @@
+#%RAML 1.0 Library
+uses:
+  base: ./base.raml
+types:
+
+  MatriculationRequest:
+    description: |
+      Matriculation
+    properties:
+      paid:
+        type: boolean
+      pay_day:
+        type: datetime-only
+      currency:
+        type: base.Currency
+      subjects:
+        type: Subject[]
+      student:
+        type: base.StudentId
+
+  MatriculationConfirm:
+    description: |
+      Matriculation
+    properties:
+      id:
+        type: base.MatriculationId        
+    
+  Subject:
+    description: |
+      Subject information
+    properties:
+      id:
+        type: base.SubjectId
+      amount:
+        type: base.Amount
+
+  MatriculationPostRequestData: 
+    description: |
+      Wrapper for a matriculation request
+    properties:
+      data:
+        type: MatriculationRequest
+
+  MatriculationConfirmRequest:
+    description: |
+      Wrapper for a matriculation confirm request
+    properties:
+      data:
+        type: MatriculationConfirm

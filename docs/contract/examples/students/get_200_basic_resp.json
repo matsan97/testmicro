@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Wick",
+      "document_number": "45511254",
+      "birth_date": "1997-02-21",
+      "gender": "M",
+      "email": "john.wick77@gmail.com"
+    }
+  ]
+}

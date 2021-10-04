@@ -1,0 +1,22 @@
+#%RAML 1.0 Library
+uses:
+  base: ./base.raml
+types:
+
+  MatriculationResponse:
+    description: |
+      Matriculation
+    properties:
+      id:
+        type: base.MatriculationId
+      creation_date:
+        type: date-only
+      creation_time:
+        type: time-only
+
+  MatriculationPostResponseData: 
+    description: |
+      Wrapper for a matriculation response
+    properties:
+      data:
+        type: MatriculationResponse

@@ -1,0 +1,20 @@
+#%RAML 1.0 Library
+uses:
+  base: ./base.raml
+types:
+
+  Subject:
+    description: |
+      Subject information
+    properties:
+      id:
+        type: base.SubjectId
+      name:
+        type: base.SubjectName
+
+  SubjectsGetResponseData:
+    description: |
+      Wrapper for a collection of Subjects
+    properties:
+      data:
+        type: Subject[]

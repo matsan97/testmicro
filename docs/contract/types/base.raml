@@ -1,0 +1,84 @@
+#%RAML 1.0 Library
+types:
+
+  StudentId:
+    description: |
+      Student ID number format
+    type: integer
+    minimum: 1
+    maximum: 999999999
+
+  SubjectId:
+    description: |
+      Subject ID number format
+    type: integer
+    minimum: 1
+    maximum: 999999999   
+
+  MatriculationId:
+    description: |
+      Matriculation ID number format
+    type: integer
+    minimum: 1
+    maximum: 999999999        
+
+  Amount:
+    description: |
+      Amount in minor units format
+
+      **Minor Units Format**
+      All amount values must be formatted in that currency’s smallest unit:
+
+      Two-decimal currency (for example US Dollars): 10.95 USD, amount will be 1095.
+      Zero-decimal currency (for example Paraguayan Guarani): 1095 PYG, amount will be 1095.
+      Click here to download the latest official <a href="https://www.currency-iso.org/en/home/tables/table-a1.html"
+      target="_blank">ISO 4217 Currency Table</a>, with **Minor Units** (number of decimal places) per currency.
+
+    type: integer
+    minimum: 1
+    maximum: 99999999999999999
+
+  id_document_number:
+    description: |
+      Paraguayan identification number
+    type: string
+    minLength: 1
+    maxLength: 15
+    pattern: '[0-9]([0-9])*([A-Z])?'
+
+  Gender:
+    description: |
+      **Valid values**
+      * M Male
+      * F Female
+    enum:
+      - M
+      - F
+
+  Currency:
+    description: |
+      **Valid values**
+      * PYG Paraguayan Guarani
+      * USD US Dollar
+    enum:
+      - PYG
+      - USD
+
+  Email:
+    description: |
+      Email address
+    type: string
+    minLength: 1
+    maxLength: 40
+
+  IndividualName:
+    description: |
+      Individual name
+    minLength: 1
+    maxLength: 80
+
+  SubjectName:
+    description: |
+      Subject name
+    minLength: 1
+    maxLength: 100

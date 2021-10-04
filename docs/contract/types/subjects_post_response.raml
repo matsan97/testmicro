@@ -1,0 +1,20 @@
+#%RAML 1.0 Library
+uses:
+  base: ./base.raml
+types:
+
+  SubjectsPostResponseData:
+    description: |
+      Wrapper for a subject post request
+    properties:
+      data:
+        type: Subject
+
+  Subject:
+    description: |
+      Subject information
+    properties:
+      id:
+        type: base.SubjectId
+      name:
+        type: base.SubjectName        
