@@ -11,10 +11,10 @@ spring:
 spring:
     profiles: develop
     datasource:
-        url: jdbc:postgresql://localhost:5432/par
+        url: jdbc:postgresql://localhost:5432/test
         driver-class-name: org.postgresql.Driver
-        username: postgres
-        password: postgres
+        username: developer
+        password: developer
 server:
     port: 8080
 ---

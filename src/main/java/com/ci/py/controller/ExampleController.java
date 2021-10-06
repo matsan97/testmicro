@@ -32,5 +32,7 @@ public class ExampleController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
+
     }
+
 }

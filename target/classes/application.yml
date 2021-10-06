@@ -1,0 +1,22 @@
+server:
+  servlet-path: /*
+  servlet:
+    context-path: /mcs-curso-ci
+spring:
+    profiles:
+        active: 'develop'
+    application:
+        name: mcs-curso-ci
+---
+spring:
+    profiles: develop
+    datasource:
+        url: jdbc:postgresql://localhost:5432/test
+        driver-class-name: org.postgresql.Driver
+        username: developer
+        password: developer
+server:
+    port: 8080
+---
+spring:
+    profiles: release
